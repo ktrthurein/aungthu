@@ -5,32 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aung Thu Computer</title>
     <link rel="icon" href="aung_thu1.png" type="image/x-icon">
-<link rel="apple-touch-icon" href="aung_thu1.png">
+    <link rel="apple-touch-icon" href="aung_thu1.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --purple: #8a2be2;
-            --purple-dark: #5a1e9c;
-            --purple-light: #b19cd9;
-            --purple-glow: rgba(138, 43, 226, 0.7);
-            --black: #000000;
-            --white: #ffffff;
-            --gray: #333333;
-            --light-gray: #f5f5f5;
+            --primary: #7c3aed; /* Premium Purple */
+            --primary-dark: #5b21b6;
+            --primary-light: #a78bfa;
+            --primary-glow: rgba(124, 58, 237, 0.3);
+            --viber-color: #7360F2; /* Viber brand color */
+            --telegram-color: #26A5E4; /* Telegram brand color */
+            --facebook-color: #1877F2; /* Facebook brand color */
+            --messenger-color: #006AFF; /* Messenger brand color */
+            --text-dark: #1e293b;
+            --text-medium: #475569;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-light: rgba(124, 58, 237, 0.08);
+            --shadow-medium: rgba(124, 58, 237, 0.15);
+            --shadow-dark: rgba(124, 58, 237, 0.25);
+            
+            /* Light Theme Variables */
+            --background-light: #f8fafc;
+            --background-section: #ffffff;
+            --card-bg: #ffffff;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --footer-bg: linear-gradient(135deg, #4c1d95 0%, #5b21b6 100%);
+        }
+        
+        [data-theme="dark"] {
+            --background-light: #0f172a;
+            --background-section: #1e293b;
+            --card-bg: #334155;
+            --header-bg: rgba(30, 41, 59, 0.95);
+            --footer-bg: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            --text-dark: #f1f5f9;
+            --text-medium: #cbd5e1;
+            --text-light: #94a3b8;
+            --border-color: #475569;
+            --shadow-light: rgba(124, 58, 237, 0.15);
+            --shadow-medium: rgba(124, 58, 237, 0.25);
+            --shadow-dark: rgba(124, 58, 237, 0.35);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         
         body {
             font-family: 'Noto Sans Myanmar', sans-serif;
             line-height: 1.6;
-            color: var(--white);
-            background-color: var(--black);
+            color: var(--text-dark);
+            background-color: var(--background-light);
             overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--shadow-medium);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            transform: rotate(45deg) scale(1.1);
+            box-shadow: 0 6px 20px var(--shadow-dark);
+        }
+        
+        .theme-toggle i {
+            font-size: 1.3rem;
+            color: white;
+        }
+        
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
         }
         
         /* Animated Background Effect */
@@ -42,14 +114,14 @@
             height: 100%;
             z-index: -1;
             overflow: hidden;
+            opacity: 0.4;
         }
         
         .bg-circle {
             position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, var(--purple-glow), transparent);
-            animation: float 15s infinite linear;
-            opacity: 0.1;
+            background: radial-gradient(circle, var(--primary-glow), transparent);
+            animation: float 20s infinite linear;
         }
         
         .bg-circle:nth-child(1) {
@@ -57,7 +129,7 @@
             height: 300px;
             top: 10%;
             left: 5%;
-            animation-duration: 20s;
+            animation-duration: 25s;
             animation-delay: 0s;
         }
         
@@ -66,7 +138,7 @@
             height: 200px;
             top: 60%;
             right: 10%;
-            animation-duration: 15s;
+            animation-duration: 20s;
             animation-delay: 2s;
         }
         
@@ -75,7 +147,7 @@
             height: 150px;
             bottom: 10%;
             left: 20%;
-            animation-duration: 25s;
+            animation-duration: 30s;
             animation-delay: 5s;
         }
         
@@ -84,7 +156,7 @@
             height: 250px;
             top: 20%;
             right: 20%;
-            animation-duration: 18s;
+            animation-duration: 22s;
             animation-delay: 8s;
         }
         
@@ -93,7 +165,7 @@
             height: 180px;
             bottom: 30%;
             right: 30%;
-            animation-duration: 22s;
+            animation-duration: 28s;
             animation-delay: 12s;
         }
         
@@ -128,10 +200,10 @@
         
         .particle {
             position: absolute;
-            background-color: var(--purple-light);
+            background-color: var(--primary-light);
             border-radius: 50%;
-            opacity: 0.3;
-            animation: particleMove 20s infinite linear;
+            opacity: 0.1;
+            animation: particleMove 25s infinite linear;
         }
         
         @keyframes particleMove {
@@ -149,16 +221,17 @@
             padding: 0 20px;
         }
         
-        /* Header Styles with Animation */
+        /* Header Styles */
         header {
-            background-color: rgba(0, 0, 0, 0.9);
-            border-bottom: 3px solid var(--purple);
+            background-color: var(--header-bg);
+            border-bottom: 3px solid var(--primary);
             padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 100;
             animation: slideDown 0.8s ease-out;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--shadow-light);
         }
         
         @keyframes slideDown {
@@ -185,7 +258,7 @@
         }
         
         .logo i {
-            color: var(--purple);
+            color: var(--primary);
             font-size: 2.5rem;
             margin-right: 15px;
             animation: logoPulse 3s infinite;
@@ -194,43 +267,59 @@
         @keyframes logoPulse {
             0%, 100% {
                 transform: scale(1);
-                text-shadow: 0 0 10px var(--purple);
+                text-shadow: 0 0 10px var(--primary);
             }
             50% {
                 transform: scale(1.1);
-                text-shadow: 0 0 20px var(--purple);
+                text-shadow: 0 0 20px var(--primary);
             }
         }
         
         .logo-text h1 {
             font-size: 1.8rem;
-            color: var(--purple);
-            text-shadow: 0 0 10px var(--purple);
+            color: var(--primary);
+            text-shadow: 0 0 5px rgba(124, 58, 237, 0.3);
             animation: textGlow 2s infinite alternate;
         }
         
         @keyframes textGlow {
             0% {
-                text-shadow: 0 0 5px var(--purple);
+                text-shadow: 0 0 5px rgba(124, 58, 237, 0.3);
             }
             100% {
-                text-shadow: 0 0 15px var(--purple), 0 0 25px var(--purple);
+                text-shadow: 0 0 10px rgba(124, 58, 237, 0.5), 0 0 15px rgba(124, 58, 237, 0.3);
             }
         }
         
         .logo-text p {
-            color: var(--purple-light);
+            color: var(--text-medium);
             font-size: 0.9rem;
         }
         
-        /* Hero Section with Animation */
+        .tagline {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(91, 33, 182, 0.1));
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            animation: taglinePulse 4s infinite;
+        }
+        
+        @keyframes taglinePulse {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(124, 58, 237, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+            }
+        }
+        
+        /* Hero Section */
         .hero {
-            padding: 60px 0;
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9));
-            background-size: cover;
-            background-position: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--background-section) 0%, var(--background-light) 100%);
             position: relative;
             overflow: hidden;
+            border-bottom: 2px solid rgba(124, 58, 237, 0.1);
         }
         
         .hero::before {
@@ -240,8 +329,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(138, 43, 226, 0.1), transparent 50%),
-                        radial-gradient(circle at 70% 20%, rgba(177, 156, 217, 0.05), transparent 50%);
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(124, 58, 237, 0.05), transparent 50%),
+                radial-gradient(circle at 70% 20%, rgba(167, 139, 250, 0.03), transparent 50%);
             z-index: -1;
             animation: backgroundMove 20s infinite alternate;
         }
@@ -294,18 +384,18 @@
             height: 280px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--purple);
-            box-shadow: 0 0 30px var(--purple);
+            border: 5px solid var(--primary);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
             animation: pulseBorder 4s infinite;
         }
         
         @keyframes pulseBorder {
             0%, 100% {
-                box-shadow: 0 0 30px var(--purple);
+                box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
                 border-width: 5px;
             }
             50% {
-                box-shadow: 0 0 50px var(--purple);
+                box-shadow: 0 0 50px rgba(124, 58, 237, 0.3);
                 border-width: 7px;
             }
         }
@@ -319,7 +409,7 @@
         .profile-info h2 {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            color: var(--purple);
+            color: var(--primary);
             animation: typing 3s steps(30) 1s 1 normal both;
             overflow: hidden;
             white-space: nowrap;
@@ -336,7 +426,7 @@
         
         .profile-info .title {
             font-size: 1.3rem;
-            color: var(--purple-light);
+            color: var(--text-medium);
             margin-bottom: 20px;
             font-weight: 600;
             animation: fadeIn 2s ease-out 1.5s both;
@@ -352,7 +442,7 @@
         .profile-info p {
             font-size: 1.1rem;
             margin-bottom: 20px;
-            color: #cccccc;
+            color: var(--text-medium);
             animation: fadeIn 2s ease-out 2s both;
             opacity: 0;
         }
@@ -370,13 +460,15 @@
         .contact-item {
             display: flex;
             align-items: center;
-            background: rgba(138, 43, 226, 0.1);
+            background: rgba(124, 58, 237, 0.05);
             padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid var(--purple);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
         }
         
         .contact-item::before {
@@ -386,7 +478,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.05), transparent);
             transition: left 0.5s;
         }
         
@@ -396,32 +488,34 @@
         
         .contact-item:hover {
             transform: translateY(-5px);
-            background: rgba(138, 43, 226, 0.2);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            background: rgba(124, 58, 237, 0.08);
+            box-shadow: 0 5px 15px var(--shadow-light);
+            border-color: var(--primary);
         }
         
         .contact-icon {
-            color: var(--purple);
+            color: var(--primary);
             font-size: 1.5rem;
             margin-right: 15px;
         }
         
         .contact-details h4 {
             font-size: 1rem;
-            color: var(--purple-light);
+            color: var(--text-medium);
             margin-bottom: 5px;
         }
         
         .contact-details p {
             font-size: 1.1rem;
-            color: var(--white);
+            color: var(--text-dark);
             margin: 0;
+            font-weight: 600;
         }
         
         /* Products Section */
         .products {
-            padding: 60px 0;
-            background-color: rgba(51, 51, 51, 0.9);
+            padding: 100px 0;
+            background-color: var(--background-section);
             position: relative;
             overflow: hidden;
         }
@@ -433,7 +527,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(138, 43, 226, 0.05) 50%, transparent 70%);
+            background: linear-gradient(45deg, transparent 30%, rgba(124, 58, 237, 0.02) 50%, transparent 70%);
             animation: shine 10s infinite;
         }
         
@@ -448,19 +542,19 @@
         
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
-            color: var(--purple);
+            margin-bottom: 50px;
+            color: var(--primary);
             position: relative;
-            font-size: 2rem;
+            font-size: 2.2rem;
             animation: titleGlow 3s infinite alternate;
         }
         
         @keyframes titleGlow {
             0% {
-                text-shadow: 0 0 5px var(--purple), 0 0 10px transparent;
+                text-shadow: 0 0 5px rgba(124, 58, 237, 0.1);
             }
             100% {
-                text-shadow: 0 0 10px var(--purple), 0 0 20px var(--purple), 0 0 30px transparent;
+                text-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
             }
         }
         
@@ -469,8 +563,8 @@
             position: absolute;
             width: 100px;
             height: 4px;
-            background-color: var(--purple);
-            bottom: -10px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             animation: lineExpand 2s infinite alternate;
@@ -488,19 +582,20 @@
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
+            gap: 30px;
         }
         
         .product-card {
-            background-color: var(--black);
-            border-radius: 10px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid var(--purple);
-            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
             opacity: 0;
             transform: translateY(30px);
             animation: cardAppear 0.8s forwards;
             animation-delay: calc(var(--card-index) * 0.1s);
+            box-shadow: 0 5px 15px var(--shadow-light);
         }
         
         @keyframes cardAppear {
@@ -512,12 +607,13 @@
         
         .product-card:hover {
             transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 15px 30px var(--shadow-medium);
+            border-color: var(--primary);
         }
         
         .product-icon {
-            background-color: rgba(138, 43, 226, 0.2);
-            height: 100px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(91, 33, 182, 0.1));
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -542,7 +638,7 @@
         
         .product-icon i {
             font-size: 3rem;
-            color: var(--purple);
+            color: var(--primary);
             animation: iconFloat 3s infinite;
         }
         
@@ -556,58 +652,50 @@
         }
         
         .product-content {
-            padding: 20px;
+            padding: 25px;
         }
         
         .product-content h3 {
-            font-size: 1.9rem;
-            margin-bottom: 10px;
-            color: var(--purple-light);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--primary);
         }
         
         .product-content p {
-            color: #cccccc;
+            color: var(--text-medium);
             font-size: 0.95rem;
+            line-height: 1.6;
         }
         
         /* Social Media Section */
         .social-media {
-            padding: 60px 0;
-            background-color: rgba(0, 0, 0, 0.9);
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--background-light) 0%, var(--background-section) 100%);
             position: relative;
-        }
-        
-        .social-media::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.05), transparent 30%),
-                radial-gradient(circle at 80% 20%, rgba(177, 156, 217, 0.05), transparent 30%);
+            border-top: 2px solid rgba(124, 58, 237, 0.1);
+            border-bottom: 2px solid rgba(124, 58, 237, 0.1);
         }
         
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
         }
         
         .social-card {
-            background-color: rgba(51, 51, 51, 0.8);
-            border-radius: 10px;
-            padding: 30px 20px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px 25px;
             text-align: center;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(30px);
             animation: cardAppear 0.8s forwards;
             animation-delay: calc(var(--card-index) * 0.1s);
+            box-shadow: 0 5px 15px var(--shadow-light);
         }
         
         .social-card::before {
@@ -617,7 +705,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent 30%, rgba(138, 43, 226, 0.1) 50%, transparent 70%);
+            background: linear-gradient(45deg, transparent 30%, rgba(124, 58, 237, 0.05) 50%, transparent 70%);
             transform: translateX(-100%);
             transition: transform 0.6s;
         }
@@ -627,16 +715,61 @@
         }
         
         .social-card:hover {
-            border-color: var(--purple);
             transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 15px 30px var(--shadow-medium);
+        }
+        
+        /* Different hover effects for each social card */
+        .social-card:nth-child(1):hover {
+            border-color: var(--messenger-color);
+            box-shadow: 0 15px 30px rgba(0, 106, 255, 0.15);
+        }
+        
+        .social-card:nth-child(2):hover {
+            border-color: var(--viber-color);
+            box-shadow: 0 15px 30px rgba(115, 96, 242, 0.15);
+        }
+        
+        .social-card:nth-child(3):hover {
+            border-color: var(--telegram-color);
+            box-shadow: 0 15px 30px rgba(38, 165, 228, 0.15);
+        }
+        
+        .social-card:nth-child(4):hover {
+            border-color: var(--viber-color);
+            box-shadow: 0 15px 30px rgba(115, 96, 242, 0.15);
+        }
+        
+        .social-card:nth-child(5):hover {
+            border-color: var(--facebook-color);
+            box-shadow: 0 15px 30px rgba(24, 119, 242, 0.15);
         }
         
         .social-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--purple);
+            font-size: 3.5rem;
+            margin-bottom: 25px;
             animation: socialIconSpin 10s infinite linear;
+        }
+        
+        /* Different colors for each social icon */
+        .social-card:nth-child(1) .social-icon {
+            color: var(--messenger-color);
+        }
+        
+        .social-card:nth-child(2) .social-icon {
+            color: var(--viber-color);
+        }
+        
+        .social-card:nth-child(3) .social-icon {
+            color: var(--telegram-color);
+        }
+        
+        .social-card:nth-child(4) .social-icon {
+            color: var(--viber-color);
+        }
+        
+        .social-card:nth-child(5) .social-icon {
+            color: var(--facebook-color);
         }
         
         @keyframes socialIconSpin {
@@ -649,26 +782,30 @@
         }
         
         .social-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 15px;
-            color: var(--purple-light);
+            color: var(--text-dark);
         }
         
         .social-card p {
-            color: #cccccc;
-            margin-bottom: 20px;
+            color: var(--text-medium);
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
         
         .social-link {
             display: inline-block;
-            background-color: var(--purple);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 8px 20px;
-            border-radius: 5px;
+            padding: 12px 30px;
+            border-radius: 10px;
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            font-weight: 600;
+            border: none;
+            letter-spacing: 0.5px;
         }
         
         .social-link::after {
@@ -701,15 +838,14 @@
         }
         
         .social-link:hover {
-            background-color: var(--purple-dark);
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
         }
         
         /* Location Section */
         .location {
-            padding: 60px 0;
-            background-color: rgba(51, 51, 51, 0.9);
+            padding: 100px 0;
+            background-color: var(--background-section);
             position: relative;
             overflow: hidden;
         }
@@ -721,7 +857,7 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--purple), transparent);
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
             animation: lineMove 3s infinite linear;
         }
         
@@ -744,31 +880,32 @@
         .map {
             flex: 1;
             min-width: 300px;
-            height: 300px;
-            background-color: rgba(138, 43, 226, 0.1);
-            border-radius: 10px;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.05), rgba(91, 33, 182, 0.05));
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--purple);
-            margin-right: 30px;
+            border: 2px solid var(--border-color);
+            margin-right: 40px;
             position: relative;
             overflow: hidden;
             animation: mapPulse 4s infinite;
+            box-shadow: 0 5px 15px var(--shadow-light);
         }
         
         @keyframes mapPulse {
             0%, 100% {
-                box-shadow: 0 0 20px rgba(138, 43, 226, 0.3);
+                box-shadow: 0 5px 15px rgba(124, 58, 237, 0.1);
             }
             50% {
-                box-shadow: 0 0 40px rgba(138, 43, 226, 0.5);
+                box-shadow: 0 5px 25px rgba(124, 58, 237, 0.15);
             }
         }
         
         .map i {
             font-size: 5rem;
-            color: var(--purple);
+            color: var(--primary);
             animation: mapIconFloat 5s infinite ease-in-out;
         }
         
@@ -794,8 +931,8 @@
         
         .address h3 {
             font-size: 1.8rem;
-            color: var(--purple);
-            margin-bottom: 20px;
+            color: var(--primary);
+            margin-bottom: 25px;
             position: relative;
             display: inline-block;
         }
@@ -807,7 +944,7 @@
             left: 0;
             width: 0;
             height: 3px;
-            background-color: var(--purple);
+            background-color: var(--primary);
             transition: width 0.5s;
         }
         
@@ -817,14 +954,15 @@
         
         .address p {
             font-size: 1.1rem;
-            margin-bottom: 15px;
-            color: #cccccc;
+            margin-bottom: 20px;
+            color: var(--text-medium);
             position: relative;
-            padding-left: 25px;
+            padding-left: 30px;
+            line-height: 1.6;
         }
         
         .address i {
-            color: var(--purple);
+            color: var(--primary);
             margin-right: 10px;
             position: absolute;
             left: 0;
@@ -843,44 +981,50 @@
         
         /* Business Hours */
         .business-hours {
-            margin-top: 30px;
+            margin-top: 35px;
             animation: fadeIn 2s ease-out;
         }
         
         .hours-table {
             width: 100%;
             border-collapse: collapse;
+            background: rgba(124, 58, 237, 0.03);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 3px 10px var(--shadow-light);
         }
         
         .hours-table tr {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--border-color);
             transition: all 0.3s;
         }
         
         .hours-table tr:hover {
-            background-color: rgba(138, 43, 226, 0.1);
+            background: rgba(124, 58, 237, 0.05);
         }
         
         .hours-table td {
-            padding: 10px 0;
-            color: #cccccc;
+            padding: 15px 20px;
+            color: var(--text-medium);
             transition: all 0.3s;
         }
         
         .hours-table tr:hover td {
-            padding-left: 10px;
+            padding-left: 25px;
         }
         
         .hours-table td:first-child {
-            color: var(--purple-light);
+            color: var(--primary);
+            font-weight: 600;
+            width: 60%;
         }
         
         /* Footer */
         footer {
-            background-color: rgba(0, 0, 0, 0.95);
-            padding: 40px 0;
+            background: var(--footer-bg);
+            padding: 60px 0;
             text-align: center;
-            border-top: 2px solid var(--purple);
             position: relative;
             overflow: hidden;
         }
@@ -892,7 +1036,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, var(--purple), var(--purple-light), var(--purple));
+            background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--primary));
             background-size: 200% 100%;
             animation: gradientMove 3s infinite linear;
         }
@@ -910,21 +1054,21 @@
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .footer-section {
             flex: 1;
             min-width: 250px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             padding: 0 20px;
             animation: fadeInUp 1s ease-out;
         }
         
         .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--purple);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: #ffffff;
             position: relative;
             display: inline-block;
         }
@@ -937,7 +1081,7 @@
             transform: translateX(-50%);
             width: 50px;
             height: 2px;
-            background-color: var(--purple);
+            background-color: var(--primary-light);
             animation: lineWidth 2s infinite alternate;
         }
         
@@ -951,42 +1095,100 @@
         }
         
         .quick-contact p {
-            margin-bottom: 10px;
-            color: #cccccc;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.8);
             transition: all 0.3s;
-            padding: 5px;
-            border-radius: 5px;
+            padding: 8px;
+            border-radius: 8px;
+            position: relative;
+            padding-left: 35px;
         }
         
         .quick-contact p:hover {
-            background-color: rgba(138, 43, 226, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             transform: translateX(5px);
         }
         
+        .quick-contact p i {
+            color: var(--primary-light);
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        
         .copyright {
-            padding-top: 20px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: #aaaaaa;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
             animation: fadeIn 2s ease-out;
         }
         
         .copyright p:last-child {
-            color: var(--purple-light);
+            color: var(--primary-light);
             animation: colorShift 5s infinite alternate;
+            margin-top: 15px;
         }
         
         @keyframes colorShift {
             0% {
-                color: var(--purple-light);
+                color: var(--primary-light);
             }
             100% {
-                color: var(--purple);
+                color: #ffffff;
             }
         }
         
         .glow {
-            text-shadow: 0 0 10px var(--purple);
+            text-shadow: 0 0 10px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* Trust Badge */
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15), rgba(56, 142, 60, 0.15));
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 50px;
+            padding: 10px 20px;
+            margin: 10px 0;
+            animation: badgeGlow 3s infinite alternate;
+            backdrop-filter: blur(5px);
+        }
+        
+        @keyframes badgeGlow {
+            0% {
+                box-shadow: 0 0 5px rgba(76, 175, 80, 0.2);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+            }
+        }
+        
+        .trust-badge i {
+            color: #4CAF50;
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .trust-badge span {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        /* Viber specific styles */
+        .viber-text {
+            color: var(--viber-color);
+            font-weight: bold;
+            font-size: 1.1rem;
         }
         
         /* Scroll Animation Class */
@@ -1005,10 +1207,10 @@
         .back-to-top {
             position: fixed;
             bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--purple);
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border-radius: 50%;
             display: flex;
@@ -1021,16 +1223,17 @@
             visibility: hidden;
             transform: translateY(20px);
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
             animation: pulse 2s infinite;
+            border: 2px solid var(--background-light);
         }
         
         @keyframes pulse {
             0%, 100% {
-                box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+                box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
             }
             50% {
-                box-shadow: 0 5px 25px rgba(138, 43, 226, 0.8);
+                box-shadow: 0 5px 25px rgba(124, 58, 237, 0.6);
             }
         }
         
@@ -1041,8 +1244,8 @@
         }
         
         .back-to-top:hover {
-            background-color: var(--purple-dark);
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.6);
         }
         
         /* Responsive Design */
@@ -1053,8 +1256,12 @@
             }
             
             .logo {
-                margin-bottom: 20px;
+                margin-bottom: 15px;
                 justify-content: center;
+            }
+            
+            .tagline {
+                margin-top: 15px;
             }
             
             .hero-content {
@@ -1062,30 +1269,45 @@
             }
             
             .profile-info {
-                padding: 30px 0 0 0;
+                padding: 40px 0 0 0;
                 text-align: center;
             }
             
             .map {
                 margin-right: 0;
-                margin-bottom: 30px;
+                margin-bottom: 40px;
             }
             
             .back-to-top {
                 bottom: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+                right: 15px;
+                width: 50px;
+                height: 50px;
+                font-size: 1.3rem;
             }
-        }
-        
-        @media (max-width: 480px) {
+            
+            .theme-toggle {
+                top: 90px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+            
             .profile-image img {
                 width: 220px;
                 height: 220px;
             }
             
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .hero, .products, .social-media, .location {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
             .profile-info h2 {
                 font-size: 2rem;
             }
@@ -1093,11 +1315,25 @@
             .bg-circle {
                 display: none;
             }
+            
+            .product-grid, .social-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body data-theme="light">
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+        <i class="fas fa-sun"></i>
+    </div>
+    
     <!-- Animated Background -->
     <div class="bg-animation">
         <div class="bg-circle"></div>
@@ -1121,12 +1357,18 @@
             <div class="logo">
                 <i class="fas fa-laptop-code"></i>
                 <div class="logo-text">
-                    <h1 class="glow">Aung Thu Computer</h1>
+                    <h1 class="glow">AUNG THU COMPUTER</h1>
                     <p>ကွန်ပျူတာပစ္စည်းများ အရောင်းဆိုင်</p>
                 </div>
             </div>
             <div class="tagline">
-                <p style="color: var(--purple-light); font-size: 1.1rem;"><i class="fas fa-star"></i> ယုံကြည်စိတ်ချရသော ဝန်ဆောင်မှု</p>
+                <p style="color: var(--text-dark); font-size: 1.1rem;">
+
+
+                        <i class="fas fa-check-circle"></i>
+                        <span>ယုံကြည်စိတ်ချရသော ဝန်ဆောင်မှု</span>
+                    </span>
+                </p>
             </div>
         </div>
     </header>
@@ -1138,7 +1380,7 @@
                 <img src="aung_thu1.png" alt="ဆိုင်ပိုင်ရှင်">
             </div>
             <div class="profile-info">
-                <h2 class="glow">Aung Thu </h2>
+                <h2 class="glow">AUNG THU</h2>
                 <div class="title">Management & Computer Training Centre</div>
                 <p>Our store sells genuine, high-quality computer accessories at affordable prices. We understand every customer's needs, provide the best advice, and help them select and purchase the right products.</p>
                 
@@ -1158,7 +1400,8 @@
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Full Hour</h4>
+                            <h4>Business Hours</h4>
+                            <p>Everyday 9:00 AM - 8:00 PM</p>
                         </div>
                     </div>
                 </div>
@@ -1169,7 +1412,7 @@
     <!-- Products Section -->
     <section class="products">
         <div class="container">
-            <h2 class="section-title">မင်မင်တို့ဆိုင််တွင် ရရှိနိုင်သော ပစ္စည်းများ</h2>
+            <h2 class="section-title">မင်မင်တို့ဆိုင်တွင် ရရှိနိုင်သော ပစ္စည်းများ</h2>
             <div class="product-grid">
                 <div class="product-card" style="--card-index: 0;">
                     <div class="product-icon">
@@ -1197,7 +1440,7 @@
                     </div>
                     <div class="product-content">
                         <h3>Network Devices</h3>
-                        <p>WiFi Router၊ CCTV၊  Switch၊ Modem၊ Network Cable၊ Access Point များ</p>
+                        <p>WiFi Router၊ CCTV၊ Switch၊ Modem၊ Network Cable၊ Access Point များ</p>
                     </div>
                 </div>
                 
@@ -1244,10 +1487,10 @@
                     </div>
                     <h3>Viber</h3>
                     <p>ဖုန်းခေါ်ဆိုခြင်း၊ Message ပို့ခြင်း</p>
-                    <p style="color: var(--purple-light); font-weight: bold;">Viber: 09 420 662 908</p>
+                    <p class="viber-text" style="font-weight: bold;">Viber: 09 420 662 908</p>
                 </div>
                 
-                                <div class="social-card" style="--card-index: 2;">
+                <div class="social-card" style="--card-index: 2;">
                     <div class="social-icon">
                         <i class="fab fa-telegram"></i>
                     </div>
@@ -1256,17 +1499,16 @@
                     <a href="https://t.me/aungthucomputer" class="social-link">Telegram Channel</a>
                 </div>
                 
-                
-                <div class="social-card" style="--card-index: 2;">
+                <div class="social-card" style="--card-index: 3;">
                     <div class="social-icon">
                         <i class="fab fa-viber"></i>
                     </div>
-                    <h3>Viber</h3>
+                    <h3>Viber Channel</h3>
                     <p>ပစ္စည်းများကြည့်ရန် Channel</p>
                     <a href="https://invite.viber.com/?g2=AQB7EZ%2Bpnu%2BZTVMsILWG7I2w3P%2BRMKlfe9RxK9pBGJeZuApyXiqX5%2FegUr5ZEQ7d" class="social-link">Viber Channel</a>
                 </div>
                 
-                <div class="social-card" style="--card-index: 3;">
+                <div class="social-card" style="--card-index: 4;">
                     <div class="social-icon">
                         <i class="fab fa-facebook"></i>
                     </div>
@@ -1287,9 +1529,12 @@
                     <i class="fas fa-map-marked-alt"></i>
                 </div>
                 <div class="address">
-                    <h3>Aung Thu Computer</h3>
+                    <h3>AUNG THU COMPUTER</h3>
                     <p><i class="fas fa-map-marker-alt"></i> ၁၆၉၃-ခ၊ ဝါဝါဝင်းလမ်း၊ (၁၆)ရပ်ကွက်၊ ရုံးရှေ့မှတ်တိုင်အနီး ကမ္ဘောဇမှတ်တိုင်၊ လှိုင်သာယာမြို့နယ်၊ ရန်ကုန်မြို့။</p>
                     <p><i class="fas fa-phone"></i> ဖုန်းနံပါတ်: ၀၉ ၄၂၀ ၆၆၂ ၉၀၈</p>
+                    
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -1302,31 +1547,58 @@
                 <div class="footer-section">
                     <h3>Service</h3>
                     <p>Selling Computer Parts</p>
+
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Our guarantees</h3>
-                    <p>For to For<br>ရန်ကုန်မြို့နယ် to ရန်ကုန်မြို့ </p>
+                    <h3>Our Guarantees</h3>
+                    <p>Product Authenticity Guarantee</p>
+                    <p>Warranty Coverage For All Products</p>
+
                 </div>
                 
                 <div class="footer-section quick-contact">
                     <h3>Contact</h3>
-                    <p><i class="fas fa-phone" style="color: var(--purple);"></i> ၀၉ ၄၂၀ ၆၆၂ ၉၀၈</p>
-                    <p><i class="fab fa-viber" style="color: var(--purple);"></i> Viber: 09 420 662 908</p>
-                    <p><i class="fab fa-facebook-messenger" style="color: var(--purple);"></i> Messenger: @aungthu.mcpt</p>
-                    <p><i class="fas fa-map-marker-alt" style="color: var(--purple);"></i>လှိုင်သာယာမြို့နယ်၊ ရန်ကုန်မြို့နယ်</p>
+                    <p><i class="fas fa-phone"></i> ၀၉ ၄၂၀ ၆၆၂ ၉၀၈</p>
+                    <p><i class="fab fa-viber"></i> Viber: 09 420 662 908</p>
+                    <p><i class="fab fa-facebook-messenger"></i> Messenger: @aungthu.mcpt</p>
+                    <p><i class="fas fa-map-marker-alt"></i>လှိုင်သာယာမြို့နယ်၊ ရန်ကုန်မြို့။</p>
                 </div>
             </div>
             
             <div class="copyright">
-                <p> © 2025 Aung Thu Computer All rights reserved.</p>
-                <p style="margin-top: 10px; color: var(--purple-light);">Design: ThuRein</p>
+                <p>© 2025 Aung Thu Computer. All rights reserved.</p>
+                <p style="margin-top: 10px;">
+                    <i class="fas fa-heart" style="color: #ff4081;"></i> Design: ThuRein
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Theme Toggle Functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            // Check for saved theme preference
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            body.setAttribute('data-theme', savedTheme);
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                
+                // Add rotation animation
+                this.style.transform = 'rotate(180deg) scale(1.2)';
+                setTimeout(() => {
+                    this.style.transform = 'rotate(0) scale(1)';
+                }, 300);
+            });
+            
             // Create floating particles
             createParticles();
             
@@ -1341,8 +1613,8 @@
             
             setInterval(function() {
                 glowElements.forEach(element => {
-                    const intensity = Math.floor(Math.random() * 30) + 70;
-                    element.style.textShadow = `0 0 ${intensity}px var(--purple)`;
+                    const intensity = Math.floor(Math.random() * 15) + 10;
+                    element.style.textShadow = `0 0 ${intensity}px rgba(124, 58, 237, 0.3)`;
                 });
             }, 1000);
             
@@ -1361,25 +1633,25 @@
             const socialCards = document.querySelectorAll('.social-card');
             socialCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    this.style.boxShadow = '0 15px 30px rgba(138, 43, 226, 0.4)';
+                    this.style.boxShadow = '0 15px 30px rgba(124, 58, 237, 0.15)';
                 });
                 
                 card.addEventListener('mouseleave', function() {
-                    this.style.boxShadow = 'none';
+                    this.style.boxShadow = '0 5px 15px rgba(124, 58, 237, 0.1)';
                 });
             });
             
             // Function to create floating particles
             function createParticles() {
                 const particlesContainer = document.getElementById('particles');
-                const particleCount = 30;
+                const particleCount = body.getAttribute('data-theme') === 'dark' ? 30 : 20;
                 
                 for (let i = 0; i < particleCount; i++) {
                     const particle = document.createElement('div');
                     particle.classList.add('particle');
                     
                     // Random size
-                    const size = Math.random() * 5 + 2;
+                    const size = Math.random() * 3 + 1;
                     particle.style.width = `${size}px`;
                     particle.style.height = `${size}px`;
                     
@@ -1393,8 +1665,10 @@
                     particle.style.animationDuration = `${duration}s`;
                     particle.style.animationDelay = `${delay}s`;
                     
-                    // Random opacity
-                    const opacity = Math.random() * 0.4 + 0.1;
+                    // Random opacity based on theme
+                    const opacity = body.getAttribute('data-theme') === 'dark' ? 
+                        Math.random() * 0.3 + 0.1 : 
+                        Math.random() * 0.2 + 0.05;
                     particle.style.opacity = opacity;
                     
                     particlesContainer.appendChild(particle);
@@ -1467,6 +1741,22 @@
             
             // Start typing effect after a delay
             setTimeout(typeWriter, 500);
+            
+            // Add trust message animation
+            const trustBadge = document.querySelector('.trust-badge');
+            setInterval(() => {
+                trustBadge.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    trustBadge.style.transform = 'scale(1)';
+                }, 300);
+            }, 5000);
+            
+            // Update particles when theme changes
+            body.addEventListener('themeChanged', function() {
+                const particles = document.querySelectorAll('.particle');
+                particles.forEach(p => p.remove());
+                createParticles();
+            });
         });
     </script>
 </body>
