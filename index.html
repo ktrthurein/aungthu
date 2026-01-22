@@ -40,6 +40,12 @@
             transition: background-color 0.3s, color 0.3s;
         }
         
+         @keyframes progress {
+        from { width: 100%; }
+        to { width: 0%; }
+    }
+        
+        
         body {
             background: var(--bg-gradient);
             color: var(--text-color);
@@ -1110,6 +1116,13 @@ Aung Thu Computer:
                 </div>
             </div>
             
+            <div id="autoHideNoti" style="position:fixed;bottom:20px;right:20px;background:#7360f2;color:white;padding:15px;border-radius:20px 20px 0 20px;box-shadow:0 5px 15px rgba(33,150,243,0.3);z-index:1000;overflow:hidden">
+    <div style="position:absolute;bottom:0;left:0;height:3px;background:white;width:100%;animation:progress 5s linear"></div>
+    <i class="fas fa-info-circle"></i> 
+    ၂၅ရက်နေ့ တစ်ရက် ဆိုင်ပိတ်ပါမည်!
+</div>
+            
+            
             <div class="nav-right">
                 <div class="admin-panel">
                     <button class="admin-btn" id="aboutSystemBtn">
@@ -1313,6 +1326,15 @@ Aung Thu Computer:
     </footer>
 
     <script>
+      
+          setTimeout(function() {
+        document.getElementById('autoHideNoti').style.transform = 'translateX(100%)';
+        document.getElementById('autoHideNoti').style.opacity = '0';
+        setTimeout(function() {
+            document.getElementById('autoHideNoti').style.display = 'none';
+        }, 500);
+    }, 5000);
+      
         // Configuration
         const TOTAL_POSTS = 769;
         const POSTS_PER_PAGE = 12;
